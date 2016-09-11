@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
     <com.djrausch.currencyedittext.CurrencyEditText
         android:id="@+id/currency"
-        android:hint="MONEY"
+        android:hint="Amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
