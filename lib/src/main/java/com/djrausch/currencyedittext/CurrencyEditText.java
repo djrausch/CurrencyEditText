@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -76,16 +77,17 @@ public class CurrencyEditText extends EditText {
         public void afterTextChanged(Editable editable) {
             if (!editable.toString().equals(mCurrentValue)) {
                 mTextView.removeTextChangedListener(mCurrencyTextWatcher);
-
-                String removedSymbol = editable.toString().replaceAll("[" + mSymbol + ",.\\\\s]", "");
-
+                Log.d("symbol", mSymbol);
+                String removedSymbol = editable.toString().replaceAll("[" + mSymbol + ",.\\\\s]", "").replaceAll("\\s", "");
+                Log.d("removed", removedSymbol);
                 try {
                     mCurrentDoubleValue = Double.parseDouble(removedSymbol);
+                    Log.d("double", String.valueOf(mCurrentDoubleValue));
                 } catch (NumberFormatException e) {
                     mCurrentDoubleValue = 0.00;
                 }
 
-                mCurrentValue = NumberFormat.getCurrencyInstance().format(mCurrentDoubleValue / 100);
+                mCurrentValue = NumberFormat.getInstance().format(mCurrentDoubleValue / 100);
                 mTextView.setText("");
                 mTextView.append(mCurrentValue);
                 mTextView.addTextChangedListener(mCurrencyTextWatcher);
