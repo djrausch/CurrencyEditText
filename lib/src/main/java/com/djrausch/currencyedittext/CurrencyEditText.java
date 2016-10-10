@@ -86,8 +86,10 @@ public class CurrencyEditText extends EditText {
                 } catch (NumberFormatException e) {
                     mCurrentDoubleValue = 0.00;
                 }
-
-                mCurrentValue = NumberFormat.getInstance().format(mCurrentDoubleValue / 100);
+                NumberFormat numberFormat = NumberFormat.getInstance();
+                numberFormat.setMinimumFractionDigits(2);
+                numberFormat.setMaximumFractionDigits(2);
+                mCurrentValue = numberFormat.format(mCurrentDoubleValue / 100);
                 mTextView.setText("");
                 mTextView.append(mCurrentValue);
                 mTextView.addTextChangedListener(mCurrencyTextWatcher);
